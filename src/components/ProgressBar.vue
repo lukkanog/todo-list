@@ -1,15 +1,24 @@
 <template>
     <div class="wrapper">
-        <div class="progress-bar"> </div>
+        <div class="progress-bar" :style="`width: ${progress}%`"> </div>
         <p class="progress-text">{{ progress }}%</p>
     </div>
 </template>
 
 <script>
+import eventbus from "../eventbus";
 export default {
     data: () => ({
         progress: 0
-    })
+    }),
+    // methods: {
+
+    // }
+    // mounted() {
+    //     eventbus.onTaskAmmountUpdate(() => {
+
+    //     })
+    // }
 }
 </script>
 

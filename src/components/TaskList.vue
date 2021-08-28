@@ -3,7 +3,7 @@
         class="tasks"
         v-if="tasks"
     >
-        <div v-for="(task, i) in tasks" :key="i">
+        <div v-for="(task, i) in orderedTasks" :key="i">
             <task-card :name="task.name" :completed="task.completed"/>
         </div>
     </ul>
@@ -18,37 +18,7 @@ export default {
     },
 
     data: () => ({
-        tasks: [
-            {
-                name: "Lavar louça",
-                completed: true
-            },
-            {
-                name: "Lavar quintal",
-                completed: false
-            },
-            {
-                name: "Lavar quintal",
-                completed: false
-            },
-            {
-                name: "Lavar quintal",
-                completed: false
-            },
-            {
-                name: "Lavar quintal",
-                completed: false
-            },
-            {
-                name: "Lavar quintal",
-                completed: false
-            },
-            {
-                name: "Lavar quintal",
-                completed: false
-            }
-        ],
-
+        tasks: []
     }),
 
     methods: {
@@ -59,13 +29,35 @@ export default {
                 this.tasks.unshift({name: taskName, completed: false})
             }
             
+        },
+        updateTask(taskName) {
+            const existentTask = this.tasks.find(x => x.name === taskName)
+
+            if (existentTask)
+                existentTask.completed = !existentTask.completed;
+        },
+        deleteTask(taskName) {
+            this.tasks = this.tasks.filter(x => x.name !== taskName)
         }
     },
 
-    mounted () {
+    mounted() {
         eventbus.onTaskCreation(task => {
             this.createTask(task);
+        });
+
+        eventbus.onTaskUpdate(task => {
+            this.updateTask(task);
+        });
+
+        eventbus.onTaskDelete(task => {
+            this.deleteTask(task);
         })
+    },
+    computed: {
+        orderedTasks() {
+            return this.tasks.sort(x => x.completed)
+        }
     }
 }
 </script>

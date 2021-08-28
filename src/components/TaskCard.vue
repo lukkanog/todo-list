@@ -2,16 +2,24 @@
     <div 
         class="card" 
         :class="completed? 'done' : 'not-done'"
+        @click="changeTaskStatus"
     >
         <div class="card-text">
             {{ name }}
         </div>
-        <span class="delete-button">x</span>
+        <span 
+            class="delete-button"
+            @click.stop="deleteTask"
+        >
+            x
+        </span>
 
     </div>
 </template>
 
 <script>
+import eventbus from "../eventbus";
+
 export default {
     props: {
         completed: {
@@ -22,6 +30,15 @@ export default {
         name: {
             type: String,
             required: true
+        }
+    },
+    methods: {
+        changeTaskStatus() {
+            eventbus.updateTask(this.name)
+        },
+
+        deleteTask() {
+            eventbus.deleteTask(this.name)
         }
     }
 }
@@ -34,7 +51,7 @@ export default {
         align-items: center;
         border-radius: 5px;
         padding: 5px;
-        margin: 5px 0;
+        margin: 5px;
         transition: .3s ease-in-out;
         cursor: pointer;
         min-width: 250px;
@@ -79,5 +96,9 @@ export default {
         margin: 0;
         border-radius: 100%;
         cursor: pointer;
+    }
+
+    .delete-button:hover{
+        filter: brightness(150%);
     }
 </style>
