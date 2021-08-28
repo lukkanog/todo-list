@@ -11,7 +11,7 @@
 
 <script>
 import TaskCard from "./TaskCard.vue";
-
+import eventbus from "../eventbus";
 export default {
     components: {
         TaskCard
@@ -49,7 +49,24 @@ export default {
             }
         ],
 
-    })
+    }),
+
+    methods: {
+        createTask(taskName) {
+            const existentTask = this.tasks.find(x => x.name === taskName)
+
+            if (!existentTask) {
+                this.tasks.unshift({name: taskName, completed: false})
+            }
+            
+        }
+    },
+
+    mounted () {
+        eventbus.onTaskCreation(task => {
+            this.createTask(task);
+        })
+    }
 }
 </script>
 
@@ -62,5 +79,6 @@ export default {
         align-items: flex-start;
         align-content: flex-start;
         list-style: none;
+        margin: 1rem 0;
     }
 </style>

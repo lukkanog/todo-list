@@ -37,6 +37,7 @@ export default {
         margin: 5px 0;
         transition: .3s ease-in-out;
         cursor: pointer;
+        min-width: 250px;
     }
 
     .card::before{
@@ -49,7 +50,7 @@ export default {
     }
 
     .card:hover{
-        transform: scale(1.1);
+        transform: scale(1.05);
         box-shadow: 5px 5px 15px #ffffff20;
     }
 

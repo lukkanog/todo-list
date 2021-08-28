@@ -2,6 +2,7 @@
 	<div id="app">
 		<h1>Tarefas</h1>
 		<progress-bar />
+		<task-input />
 		<task-list />
 	</div>
 </template>
@@ -9,11 +10,13 @@
 <script>
 import ProgressBar from "./components/ProgressBar.vue"
 import TaskList from "./components/TaskList.vue"
+import TaskInput from "./components/TaskInput.vue"
 
 export default {
 	components: {
 		ProgressBar,
-		TaskList
+		TaskList,
+		TaskInput
 	}
 }
 </script>
@@ -37,7 +40,7 @@ export default {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		height: 100vh;
+		min-height: 100vh;
 	}
 
 	#app h1 {
