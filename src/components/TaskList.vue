@@ -30,11 +30,11 @@ export default {
             }
             
         },
-        updateTask(taskName) {
+        updateTask(taskName, status) {
             const existentTask = this.tasks.find(x => x.name === taskName)
 
             if (existentTask)
-                existentTask.completed = !existentTask.completed;
+                existentTask.completed = status;
         },
         deleteTask(taskName) {
             this.tasks = this.tasks.filter(x => x.name !== taskName)
@@ -46,8 +46,8 @@ export default {
             this.createTask(task);
         });
 
-        eventbus.onTaskUpdate(task => {
-            this.updateTask(task);
+        eventbus.onTaskUpdate((task, status) => {
+            this.updateTask(task, status);
         });
 
         eventbus.onTaskDelete(task => {

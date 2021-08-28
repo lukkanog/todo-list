@@ -9,16 +9,38 @@
 import eventbus from "../eventbus";
 export default {
     data: () => ({
-        progress: 0
+        totalTasks: 0,
+        completedTasks: 0
     }),
-    // methods: {
+    computed: {
+        progress() {
+            console.log(`total: ${this.totalTasks}`)
+            console.log(`completas: ${this.completedTasks}`)
 
-    // }
-    // mounted() {
-    //     eventbus.onTaskAmmountUpdate(() => {
+            if (this.totalTasks === 0 || this.completedTasks === 0)
+                return 0
+            
+            return (this.completedTasks / this.totalTasks) * 100;
+        }
+    },
+    mounted() {
+        eventbus.onTaskCreation(() => {
+            this.totalTasks++;
+        });
 
-    //     })
-    // }
+        eventbus.onTaskUpdate((task, status) => {
+            if (status) {
+                this.completedTasks++;
+                return;
+            }
+            
+            this.completedTasks--;
+        });
+
+        eventbus.onTaskDelete(() => {
+            this.totalTasks--;
+        })
+    }
 }
 </script>
 
@@ -42,5 +64,6 @@ export default {
         height: 100%;
         position: relative;
         top: 0;
+        transition: .5s ease-in-out;
     }
 </style>

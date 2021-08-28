@@ -34,7 +34,7 @@ export default {
     },
     methods: {
         changeTaskStatus() {
-            eventbus.updateTask(this.name)
+            eventbus.updateTask(this.name, !this.completed)
         },
 
         deleteTask() {

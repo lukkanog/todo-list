@@ -6,8 +6,8 @@ export default new Vue({
             this.$emit("taskCreate", task);
         },
 
-        updateTask(task) {
-            this.$emit("taskUpdate", task);
+        updateTask(task, status) {
+            this.$emit("taskUpdate", task, status);
         },
 
         deleteTask(task) {
@@ -22,7 +22,7 @@ export default new Vue({
         onTaskUpdate(callback) {
             this.$on("taskUpdate", callback);
         },
-        
+
         onTaskDelete(callback) {
             this.$on("taskDelete", callback);
         }
