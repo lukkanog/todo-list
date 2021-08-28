@@ -20,7 +20,7 @@ export default {
             if (this.totalTasks === 0 || this.completedTasks === 0)
                 return 0
             
-            return (this.completedTasks / this.totalTasks) * 100;
+            return ((this.completedTasks / this.totalTasks) * 100).toFixed(2);
         }
     },
     mounted() {
