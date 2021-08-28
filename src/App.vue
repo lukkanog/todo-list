@@ -1,19 +1,33 @@
 <template>
 	<div id="app">
 		<h1>Tarefas</h1>
+		<progress-bar />
+		<task-list />
 	</div>
 </template>
 
 <script>
-export default {
+import ProgressBar from "./components/ProgressBar.vue"
+import TaskList from "./components/TaskList.vue"
 
+export default {
+	components: {
+		ProgressBar,
+		TaskList
+	}
 }
 </script>
 
 <style>
+	*{
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;				
+	}
+
 	body {
 		font-family: 'Lato', sans-serif;
-		background: linear-gradient(to right, rgb(22, 34, 42), rgb(58, 96, 115));
+		background: linear-gradient(to right, #42275a, #734b6d);
 		color: #FFF;
 	}
 
