@@ -50,7 +50,7 @@ export default {
             this.updateTask(task, status);
         });
 
-        eventbus.onTaskDelete(task => {
+        eventbus.onTaskDelete((task, status) => {
             this.deleteTask(task);
         })
     },

@@ -14,9 +14,6 @@ export default {
     }),
     computed: {
         progress() {
-            console.log(`total: ${this.totalTasks}`)
-            console.log(`completas: ${this.completedTasks}`)
-
             if (this.totalTasks === 0 || this.completedTasks === 0)
                 return 0
             
@@ -37,8 +34,12 @@ export default {
             this.completedTasks--;
         });
 
-        eventbus.onTaskDelete(() => {
+        eventbus.onTaskDelete((task, status) => {
             this.totalTasks--;
+
+            if (!status) {
+                this.completedTasks--;
+            }
         })
     }
 }

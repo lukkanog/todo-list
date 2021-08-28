@@ -10,8 +10,8 @@ export default new Vue({
             this.$emit("taskUpdate", task, status);
         },
 
-        deleteTask(task) {
-            this.$emit("taskDelete", task);
+        deleteTask(task, status) {
+            this.$emit("taskDelete", task, status);
         },
 
 
