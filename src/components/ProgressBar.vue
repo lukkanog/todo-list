@@ -25,7 +25,7 @@ export default {
         text-align: center;
         width: 100%;
         left: 0%;
-        top: -2.3rem;
+        top: -100%;
     }
 
     .progress-bar{
