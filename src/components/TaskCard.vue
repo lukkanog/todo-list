@@ -46,8 +46,9 @@ export default {
 
 <style scoped>
     .card{
+        position: relative;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         border-radius: 5px;
         padding: 5px;
@@ -55,15 +56,7 @@ export default {
         transition: .3s ease-in-out;
         cursor: pointer;
         min-width: 250px;
-    }
-
-    .card::before{
-        content: '';
-        display: block;
-        width: 10px;
-        height: calc(100px + 2rem);
-        background: inherit;
-        filter: brightness(60%);
+        border-left: 15px solid;
     }
 
     .card:hover{
@@ -73,12 +66,12 @@ export default {
 
     .card-text{
         text-align: center;
-        padding: .5rem 1rem;
+        padding: 3rem 1rem;
     }
 
     .done{
         background-color: #009765;
-        
+        border-color: #006946;
     }
 
     .done .card-text {
@@ -87,15 +80,19 @@ export default {
 
     .not-done{
         background-color: #8f0339;
+        border-color: #50011f;
+
     }
 
     .delete-button{
-        align-self: flex-start;
         background: #00000050;
         padding: .0rem .5rem .25rem .5rem;
         margin: 0;
         border-radius: 100%;
         cursor: pointer;
+        position: absolute;
+        right: 5%;
+        top: 5%;
     }
 
     .delete-button:hover{

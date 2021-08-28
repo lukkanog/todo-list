@@ -6,12 +6,12 @@ export default new Vue({
             this.$emit("taskCreate", task);
         },
 
-        updateTask(task, status) {
-            this.$emit("taskUpdate", task, status);
+        updateTask(task) {
+            this.$emit("taskUpdate", task);
         },
 
-        deleteTask(task, status) {
-            this.$emit("taskDelete", task, status);
+        deleteTask(task) {
+            this.$emit("taskDelete", task);
         },
 
 

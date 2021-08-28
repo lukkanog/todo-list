@@ -11,48 +11,17 @@
 
 <script>
 import TaskCard from "./TaskCard.vue";
-import eventbus from "../eventbus";
+
 export default {
     components: {
         TaskCard
     },
 
-    data: () => ({
-        tasks: []
-    }),
-
-    methods: {
-        createTask(taskName) {
-            const existentTask = this.tasks.find(x => x.name === taskName)
-
-            if (!existentTask) {
-                this.tasks.unshift({name: taskName, completed: false})
-            }
-            
-        },
-        updateTask(taskName, status) {
-            const existentTask = this.tasks.find(x => x.name === taskName)
-
-            if (existentTask)
-                existentTask.completed = status;
-        },
-        deleteTask(taskName) {
-            this.tasks = this.tasks.filter(x => x.name !== taskName)
+    props: {
+        tasks: {
+            type: Array,
+            required: true,
         }
-    },
-
-    mounted() {
-        eventbus.onTaskCreation(task => {
-            this.createTask(task);
-        });
-
-        eventbus.onTaskUpdate((task, status) => {
-            this.updateTask(task, status);
-        });
-
-        eventbus.onTaskDelete((task, status) => {
-            this.deleteTask(task);
-        })
     },
     computed: {
         orderedTasks() {

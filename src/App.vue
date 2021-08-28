@@ -1,9 +1,9 @@
 <template>
 	<div id="app">
 		<h1>Tarefas</h1>
-		<progress-bar />
+		<progress-bar :tasks="tasks"/>
 		<task-input />
-		<task-list />
+		<task-list :tasks="tasks"/>
 	</div>
 </template>
 
@@ -11,13 +11,49 @@
 import ProgressBar from "./components/ProgressBar.vue"
 import TaskList from "./components/TaskList.vue"
 import TaskInput from "./components/TaskInput.vue"
+import eventbus from "./eventbus";
 
 export default {
 	components: {
 		ProgressBar,
 		TaskList,
 		TaskInput
-	}
+	},
+	data:() => ({
+		tasks: []
+	}),
+	methods: {
+        createTask(taskName) {
+            const existentTask = this.tasks.find(x => x.name === taskName)
+
+            if (!existentTask) 
+                this.tasks.unshift({name: taskName, completed: false})
+        },
+
+        updateTask(taskName) {
+            const existentTask = this.tasks.find(x => x.name === taskName)
+
+            if (existentTask)
+                existentTask.completed = !existentTask.completed;
+        },
+
+        deleteTask(taskName) {
+            this.tasks = this.tasks.filter(x => x.name !== taskName)
+        }
+    },
+	mounted() {
+		eventbus.onTaskCreation(task => {
+			this.createTask(task);
+		});
+
+		eventbus.onTaskUpdate((task, status) => {
+			this.updateTask(task, status);
+		});
+
+		eventbus.onTaskDelete((task, status) => {
+			this.deleteTask(task);
+		})
+    },
 }
 </script>
 

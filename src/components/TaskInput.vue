@@ -26,8 +26,10 @@ export default {
     }),
     methods:  {
         handleSubmit() {
-            eventbus.createNewTask(this.taskName);
-            this.taskName = "";
+            if (this.taskName) {
+                eventbus.createNewTask(this.taskName);
+                this.taskName = "";
+            }
         }
     }
 }

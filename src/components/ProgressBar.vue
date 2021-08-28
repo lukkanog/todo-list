@@ -6,41 +6,25 @@
 </template>
 
 <script>
-import eventbus from "../eventbus";
 export default {
-    data: () => ({
-        totalTasks: 0,
-        completedTasks: 0
-    }),
-    computed: {
-        progress() {
-            if (this.totalTasks === 0 || this.completedTasks === 0)
-                return 0
-            
-            return ((this.completedTasks / this.totalTasks) * 100).toFixed(2);
+    props: {
+        tasks: {
+            type: Array,
+            required: true,
+            default: [],
         }
     },
-    mounted() {
-        eventbus.onTaskCreation(() => {
-            this.totalTasks++;
-        });
+    computed: {
+        progress() {
+            if (this.tasks) {
+                const completedTasks = this.tasks.filter(x => x.completed);
 
-        eventbus.onTaskUpdate((task, status) => {
-            if (status) {
-                this.completedTasks++;
-                return;
+                if (this.tasks.length <= 0 || completedTasks.length <= 0) 
+                    return 0;
+
+                return ((completedTasks.length / this.tasks.length) * 100).toFixed();
             }
-            
-            this.completedTasks--;
-        });
-
-        eventbus.onTaskDelete((task, status) => {
-            this.totalTasks--;
-
-            if (!status) {
-                this.completedTasks--;
-            }
-        })
+        }
     }
 }
 </script>
