@@ -46,14 +46,30 @@ export default {
 			this.createTask(task);
 		});
 
-		eventbus.onTaskUpdate((task, status) => {
+		eventbus.onTaskUpdate(task => {
 			this.updateTask(task, status);
 		});
 
-		eventbus.onTaskDelete((task, status) => {
+		eventbus.onTaskDelete(task => {
 			this.deleteTask(task);
 		})
     },
+	watch: {
+		tasks: {
+			deep: true,
+			handler: function() {
+				localStorage.setItem("@todo-list", JSON.stringify(this.tasks))
+			}
+		}
+	},
+	created() {
+		const persistentState = localStorage.getItem("@todo-list");
+
+		if (persistentState) 
+			this.tasks = JSON.parse(persistentState)
+		
+	}
+
 }
 </script>
 
